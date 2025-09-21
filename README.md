@@ -1,24 +1,13 @@
-SnowLite
---------
-monk | 2024
+# SnowLite
 
-A light snow fall effect, configurable per-player or globally.
+A light snow fall effect, enable per-player or globally.
 
-Based on Snowdrift by paramat, and PiezoU005F
-  https://github.com/paramat/snowdrift
-  https://github.com/PiezoU005F/snowdrift
+Based on Snowdrift by [paramat](https://github.com/paramat/snowdrift), and [PiezoU005F](https://github.com/PiezoU005F/snowdrift)
 
-Chat Commands
--------------
-  ### `/snow_globe`
-  + Toggle snow for all players. Requires `server` priv
+MIT © 2024-2025 monk
 
-  ### `/snow`
-  + Player toggle own snowfall. Requires `interact` priv
+## Chat Commands
 
-Planned
--------
-  - [ ] Set particle `amount = ` with command, ex: `/snow_globe 5`. Alternatively have the amount vary randomly
+  `/snow_globe`: Toggle snow for all players. Requires `server` privilege.
 
-##
-**`0.0.1`**
+  `/snow`: Player toggle own snowfall. Requires `interact` privilege.
