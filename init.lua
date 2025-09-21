@@ -22,7 +22,7 @@ local function let_it_snow(player_name, pos)
 		lposx = pposx - radius + ((math.floor(lpos / spawner_density) + 0.5) * 2 * spawner_range)
 		lposz = pposz - radius + (((lpos % spawner_density) + 0.5) * 2 * spawner_range)
 		spos = {x = lposx, y = pposy + 15, z = lposz}
-		minetest.add_particlespawner({
+		core.add_particlespawner({
 			amount = 3,
 			time = 2,
 			glow = 8,
@@ -49,7 +49,7 @@ end
 -- players who want snow
 local snow_enabled = {}
 
-local player_by_name = minetest.get_player_by_name
+local player_by_name = core.get_player_by_name
 
 local function who_wants_snow()
 	for player_name in pairs(snow_enabled) do
@@ -72,16 +72,16 @@ local function snow_days()
 
 	who_wants_snow()
 
-	minetest.after(2, snow_days)
+	core.after(2, snow_days)
 end
 
 
 -- commands to toggle the snowfall
-local send_player = minetest.chat_send_player
+local send_player = core.chat_send_player
 local start_message = "HoHoHo Let it Snow!"
 local stop_message = "NoNoNo No More Snow..."
 
-minetest.register_chatcommand("snow", {
+core.register_chatcommand("snow", {
 	description = "Toggle snow for self",
 	privs = {interact=true},
 	func = function(player_name)
@@ -99,14 +99,14 @@ minetest.register_chatcommand("snow", {
 	end
 })
 
-minetest.register_chatcommand("snow_globe", {
+core.register_chatcommand("snow_globe", {
 	description = "Toggle snow for entire server",
 	privs = {server=true},
 	func = function(admin_name)
 		if not snowing then
 			snowing = true
 
-			for _, player in ipairs(minetest.get_connected_players()) do
+			for _, player in ipairs(core.get_connected_players()) do
 				local player_name = player and player:get_player_name()
 
 				if not player_name then
@@ -118,7 +118,7 @@ minetest.register_chatcommand("snow_globe", {
 				end
 			end
 
-			minetest.after(5, snow_days)
+			core.after(5, snow_days)
 			send_player(admin_name, start_message)
 		else
 			snowing = false
@@ -128,7 +128,7 @@ minetest.register_chatcommand("snow_globe", {
 })
 
 
-minetest.register_on_joinplayer(function(player)
+core.register_on_joinplayer(function(player)
 	if not snowing then	return end
 
 	local player_name = player and player:get_player_name()
@@ -138,7 +138,7 @@ minetest.register_on_joinplayer(function(player)
 end)
 
 
-minetest.register_on_leaveplayer(function(player)
+core.register_on_leaveplayer(function(player)
 	local player_name = player and player:get_player_name()
 
 	if snow_enabled[player_name] then
